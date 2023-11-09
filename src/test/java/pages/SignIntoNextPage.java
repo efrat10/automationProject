@@ -1,38 +1,54 @@
 package pages;
 
+import infra.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+   //The class defines locators && methods for login page
    public class SignIntoNextPage {
-   WebDriver driver;
-    //
-   private By myAccountLocator = By.xpath("//header/div[1]/nav[1]/div[3]/div[2]/div[1]/a[1]/span[1]");
-   private By emailLocator = By.id("EmailOrAccountNumber");
-   private By passwordLocator = By.id("Password");
-   private By signInButtonLocator = By.id("SignInNow");
 
-   //
+   //WebDriver driver;
+
+   //Locator for my account field
+   private final By myAccountLocator = By.xpath("//header/div[1]/nav[1]/div[3]/div[2]/div[1]/a[1]/span[1]");
+
+   //Locator for my email field
+   private final By emailLocator = By.id("EmailOrAccountNumber");
+
+   //Locator for my password field
+   private final By passwordLocator = By.id("Password");
+
+   //Locator for sign in button
+   private final By signInButtonLocator = By.id("SignInNow");
+
+  /* //constructor
    public SignIntoNextPage(WebDriver driver) {
            this.driver = driver;
-       }
+       }*/
 
+    //The method type email
     public void typeEmailId(String email)
     {
-        driver.findElement(emailLocator).sendKeys(email);
-    }
-    public void typePassword(String password)
-    {
-        driver.findElement(passwordLocator).sendKeys(password);
-    }
-    public void clickSignInButton()
-    {
-        driver.findElement(signInButtonLocator).click();
-    }
-    public void clickMyAccount()
-    {
-        driver.findElement(myAccountLocator).click();
+        Browser.getDriver().findElement(emailLocator).sendKeys(email);
     }
 
+    //The method type password
+    public void typePassword(String password)
+    {
+        Browser.getDriver().findElement(passwordLocator).sendKeys(password);
+    }
+
+    //The method click on sign in button
+    public void clickSignInButton()
+    {
+        Browser.getDriver().findElement(signInButtonLocator).click();
+    }
+
+    //The method click on my account
+    public void clickMyAccount()
+    {
+        Browser.getDriver().findElement(myAccountLocator).click();
+    }
 
 }
