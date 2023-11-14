@@ -6,8 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 //The class defines locators && methods for search page
 public class SearchPage {
@@ -27,16 +30,14 @@ public class SearchPage {
     }*/
 
     //Method to type string for search
-    public void typeSearch(String dataSearch)
-    {
+    public void typeSearch(String dataSearch) throws IOException, ParserConfigurationException, SAXException {
         Browser.getDriver().findElement(searchLocator).sendKeys(dataSearch);
         Browser.getDriver().findElement(searchLocator).sendKeys(Keys.ENTER);
 
     }
 
     //method for click on first choose btn (first dress img)
-    public void doubleClickOndress1Img()
-    {
+    public void doubleClickOndress1Img() throws IOException, ParserConfigurationException, SAXException {
         Actions act = new Actions(Browser.getDriver());
         act.doubleClick(Browser.getDriver().findElement(dress1Locator));
         act.build().perform();

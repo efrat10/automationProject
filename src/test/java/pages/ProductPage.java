@@ -1,14 +1,9 @@
 package pages;
 
 import infra.Browser;
-import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
 
 public class ProductPage {
     //WebDriver driver;
@@ -48,68 +43,60 @@ public class ProductPage {
         this.driver = driver;
     }*/
 
-       /* Select drpColor = new Select(driver.findElement(colorComboBoxLocator));
-        driver.findElement(colorComboBoxLocator).click();
-        driver.findElement(specificColorLocator).click();*/
+    /* Select drpColor = new Select(driver.findElement(colorComboBoxLocator));
+     driver.findElement(colorComboBoxLocator).click();
+     driver.findElement(specificColorLocator).click();*/
     //The method for select color from comboBox
-    public void selectColor(int index)
-    {
+    public void selectColor(int index) {
         drpColor.selectByIndex(index);
     }
+
     //The method selects a certain color from the list of colors
-    public void clickSelectColor()
-    {
+    public void clickSelectColor() {
     }
 
-        Select drpColor = new Select(Browser.getDriver().findElement(colorComboBoxLocator));
+    Select drpColor = new Select(Browser.getDriver().findElement(colorComboBoxLocator));
 
-    public void selectColor(String color)
-    {
+    public void selectColor(String color) {
         drpColor.selectByVisibleText(color);
     }
 
     //The method selects a certain size from the list of sizes
     public void clickSelectSize() throws InterruptedException {
-        WebElement e1=Browser.getDriver().findElement(sizeComboBoxLocator);
+        WebElement e1 = Browser.getDriver().findElement(sizeComboBoxLocator);
         e1.click();
         Thread.sleep(4000);
-        WebElement e2=Browser.getDriver().findElement(specificSizeLocator);
+        WebElement e2 = Browser.getDriver().findElement(specificSizeLocator);
         e2.click();
     }
 
     //The method for select size from comboBox By visible
-    public void selectSize(String size)
-    {
+    public void selectSize(String size) {
         Select drpSize = new Select(Browser.getDriver().findElement(sizeComboBoxLocator));
         drpSize.selectByVisibleText(size);
     }
 
     //The method for select size from comboBox by index
-    public void selectSize(int index)
-    {
+    public void selectSize(int index) {
         Select drpSize = new Select(Browser.getDriver().findElement(sizeComboBoxLocator));
         drpSize.selectByIndex(index);
     }
 
     //The method click on 'add to bag' button
-    public void clickAddToBagButton()
-    {
+    public void clickAddToBagButton() {
         Browser.getDriver().findElement(addToBagButtonLocator).click();
     }
 
     //The method click on 'view or edit bag' button
-    public void clickViewEditBag()
-    {
+    public void clickViewEditBag() {
         Browser.getDriver().findElement(viewEditBagButtonLocator).click();
     }
 
     //The method select quantity from drop down
-    public void selectQuantity(String quantity)
-    {
+    public void selectQuantity(String quantity) {
         Select drpQuantity = new Select(Browser.getDriver().findElement(quantityDrpLocator));
         drpQuantity.selectByVisibleText(quantity);
     }
-
 
 
 }

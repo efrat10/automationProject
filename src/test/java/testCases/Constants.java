@@ -4,7 +4,8 @@ public class Constants {
 
     public final static String DRIVER_PATH = "C:\\WebDriver\\chrome109\\chromedriver.exe";
     public final static String CONFIG_XML_FILE_PATH ="C:\\Users\\User\\IdeaProjects\\automationProjectForTheNextSite\\config (1).xml";
-    public final static String REPORT_FILE_PATH = "C:\\Users\\User\\IdeaProjects\\automationProjectForTheNextSite\\extent.html";
+    //public final static String REPORT_FILE_PATH = "C:\\Users\\User\\IdeaProjects\\automationProjectForTheNextSite\\extent.html";
+    public final static String REPORT_FILE_PATH = "reportFile\\extent.html";
     public final static String SCREEN_SHOT_PATH = "C:\\Users\\User\\IdeaProjects\\automationProjectForTheNextSite\\screenShot";
     //expected title
 

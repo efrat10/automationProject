@@ -2,33 +2,21 @@ package testCases;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import infra.Browser;
-import org.apache.commons.io.FileUtils;
+import infra.ExtendReport;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import pages.*;
 import utils.Utils;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-import static org.junit.Assert.fail;
+
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 //The class performs sanity tests for the 'next' site
@@ -37,16 +25,16 @@ public class SanityTest {
     //private static WebDriver driver;
 
     // create ExtentReports and attach reporter(s)
-    private static ExtentReports extent ;
+    private static ExtentReports extent;
 
     // creates a toggle for the given test, adds all log events under it
-    private static ExtentTest test ;
+    private static ExtentTest test;
 
 
     @BeforeClass
     public static void beforeClass() throws ParserConfigurationException, IOException, SAXException {
 
-        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(Constants.REPORT_FILE_PATH);
+       /* ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(Constants.REPORT_FILE_PATH);
 
         // attach reporter
         extent = new ExtentReports();
@@ -60,9 +48,10 @@ public class SanityTest {
         extent.setSystemInfo("Third Party Software: ", "Selenium WebDriver, Junit, ExtentReports, Maven");
         extent.setSystemInfo("URL: ", Utils.getData("URL"));
         extent.setSystemInfo("Tester", "Efrat Cohen");
+*/
 
-        // log results
-        test.log(Status.INFO, "@Before class");
+        extent = ExtendReport.getInstance().getExtent();
+
 
         /*boolean driverEstablish = false;
         try {
@@ -70,7 +59,7 @@ public class SanityTest {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("-incognito");
             options.addArguments("--disable-popup-blocking");
-            //options.addArguments("--disable-extensions");
+            options.addArguments("--disable-extensions");
             options.addArguments("--profile-directory=Default");
             options.addArguments("--disable-plugins-discovery");
             options.addArguments("--start-maximized");
@@ -94,6 +83,7 @@ public class SanityTest {
     }
 */
     }
+
     //The test method performs sanity test for login page
     @Test
     public void test01_verifyLogin() throws InterruptedException, ParserConfigurationException, IOException, SAXException {
@@ -106,12 +96,12 @@ public class SanityTest {
 
         Utils.waiting();
 
-       //click on login button
+        //click on login button
         login.clickMyAccount();
 
-       //checking if the clicking on login button successful
+        //checking if the clicking on login button successful
         System.out.println(Browser.getDriver().getTitle());
-        isSucceededTransitionTo_New_Page("My account",Constants.TITLE_MY_ACCOUNT_PAGE);
+        isSucceededTransitionTo_New_Page("My account", Constants.TITLE_MY_ACCOUNT_PAGE);
         Utils.waiting();
 
         //Enter email && password
@@ -133,94 +123,36 @@ public class SanityTest {
     @Test
     //The test performs sanity test on the home page
     public void test02_HomePage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test.log(Status.INFO, "@Test - Sanity test for a Home page  starting");
-
+        //test.log(Status.INFO, "@Test - Sanity test for a Home page  starting");
+        test = ExtendReport.getInstance().getTest();
+        // log results
+        test.log(Status.INFO, "Beginning test homePage");
         //create object of HomePage
-        //HomePage homePage = new HomePage(driver);
         HomePage homePage = new HomePage();
 
         Utils.waiting();
 
-        //click on 'Home' link from header links
+        //click on links from header links and sidebar
         test.log(Status.INFO, "click on 'Home' link from header links ");
-        homePage.doubleClickHomeHeaderLink();
         //addScreenshot();
-
-        //A reference to the function that will test if navigate to home page successful
-        isSucceededTransitionTo_Home_Page();
-        Utils.waiting();
-
-//       //click on Living room link from left sidebar
-//        test.log(Status.INFO, "click on 'Living Room' link from sidebar links ");
-//        waiting();
-//        homePage.doubleClickLivingRoomLeftSidebar();
-//
-//        //A reference to the function that will test if navigate to the new page successful
-//        isSucceededTransitionTo_New_Page("Living room",Constants.TITLE_LIVING_ROOM_PAGE);
-//
-//        //return to home page
-//        driver.navigate().back();
-
-        //A reference to the function that will test if navigate to home page successful and reports on it
-        //isSucceededTransitionTo_Home_Page();
-
-        //click on 'Garden' link from Middle bar
-        test.log(Status.INFO, "click on 'Garden' link from Middle bar ");
-        Utils.waiting();
-        homePage.doubleClickGardenLinkMiddle();
-
-        //A reference to the function that will test if navigate to the new page successful and reports on it
-        isSucceededTransitionTo_New_Page("Garden",Constants.TITLE_GARDEN_PAGE);
-
-        //navigate to Home page
-        test.log(Status.INFO, "navigate to Home page");
-        Browser.getDriver().navigate().back();
-
-        //A reference to the function that will test if navigate to home page successful and reports on it
-        isSucceededTransitionTo_Home_Page();
-
-        Utils.waiting();
-
-        //click on Sport link from header links
-        test.log(Status.INFO, "click on Sport link from header links");
-        homePage.doubleClickSportsTitleLink();
-
-        //A reference to the function that will test if navigate to the new page successful and reports on it
-        isSucceededTransitionTo_New_Page("Sport",Constants.TITLE_SPORT_PAGE);
-
-        //navigate to Home page
-        test.log(Status.INFO, "navigate to Home page ");
-        Browser.getDriver().navigate().back();
-
-        //A reference to the function that will test if navigate to home page successful and reports on it
-        isSucceededTransitionTo_Home_Page();
-
-        //for changing language to hebrew
-        test.log(Status.INFO,"changing language to hebrew");
-        test.log(Status.INFO,"click on Language button");
-        homePage.clickLanguageBtn();
-        test.log(Status.INFO,"click on Hebrew button");
-        homePage.clickHebrewBtn();
-        test.log(Status.INFO,"click on Shop Now button");
-        homePage.clickShopNowBtn();
+        homePage.clickOnLinksAndValidateTitle();
+        homePage.changeLanguage();
 
         //checking if the changing language succeeded
-        isSucceededTransitionTo_New_Page( "Hebrew",Constants.TITLE_HEBREW_HOME_PAGE);
+        //isSucceededTransitionTo_New_Page( "Hebrew",Constants.TITLE_HEBREW_HOME_PAGE);
 
         //return to english
         Browser.getDriver().navigate().back();
         Utils.waiting();
 
         ////A reference to the function that will test if navigate to the new page successful and reports on it
-        isSucceededTransitionTo_New_Page("english",Constants.TITLE_HOME_PAGE);
+        //isSucceededTransitionTo_New_Page("english",Constants.TITLE_HOME_PAGE);
 
         test.log(Status.INFO, " @Test - Sanity test for a Home page ending");
-
     }
 
     @Test
-    public void test03_ProductBuyingProcess() throws InterruptedException, IOException, ParserConfigurationException, SAXException
-    {
+    public void test03_ProductBuyingProcess() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
         //A call to the method that will perform sanity test on the Search page
         test_searchPage();
 
@@ -236,16 +168,17 @@ public class SanityTest {
 
     @AfterClass
     public static void afterClass() throws Exception {
-        test.log(Status.INFO, "@After class " + "After class method");
+
         // build and flush report
         extent.flush();
         Browser.getDriver().quit();
+        test.log(Status.INFO, "@After class  was performed " );
     }
 
 
     //The test performs sanity test on the Search page
     public void test_searchPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test.log(Status.INFO," @Test - Sanity test for a Search page starting");
+        test.log(Status.INFO, " @Test - Sanity test for a Search page starting");
 
         //creating object for search page
         SearchPage searchPage = new SearchPage();
@@ -260,14 +193,14 @@ public class SanityTest {
         searchPage.doubleClickOndress1Img();
         test.log(Status.INFO, "Clicking on the desired product");
         Utils.waiting();
-        isSucceededTransitionTo_New_Page("product",Constants.TITLE_PRODUCT_PAGE);
+        isSucceededTransitionTo_New_Page("product", Constants.TITLE_PRODUCT_PAGE);
 
-        test.log(Status.INFO," Sanity test for a Search page ending");
+        test.log(Status.INFO, " Sanity test for a Search page ending");
     }
 
     //Method for test productPage
     public void test_productPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test.log(Status.INFO," @Test - Sanity test for a Product page starting");
+        test.log(Status.INFO, " @Test - Sanity test for a Product page starting");
 
         //creating object for product page
         ProductPage productPage = new ProductPage();
@@ -275,7 +208,7 @@ public class SanityTest {
         System.out.println(Browser.getDriver().getTitle());
 
         //Choosing a specific color
-        test.log(Status.INFO,"Choosing a specific color");
+        test.log(Status.INFO, "Choosing a specific color");
         //productPage.selectColor("Navy Blue");
         //productPage.selectColor(3);
         productPage.clickSelectColor();
@@ -283,21 +216,21 @@ public class SanityTest {
         Utils.waiting();
 
         //Choosing a specific size
-        test.log(Status.INFO,"Choosing a specific size");
+        test.log(Status.INFO, "Choosing a specific size");
         //productPage.selectSize(getData("SIZE"));
         productPage.clickSelectSize();
         Utils.waiting();
 
         //click on add to bag button
-        test.log(Status.INFO,"click on add to bag button");
+        test.log(Status.INFO, "click on add to bag button");
         productPage.clickAddToBagButton();
         Utils.waiting();
 
         //click on view/edit button
-        test.log(Status.INFO,"click on 'view/edit' button");
+        test.log(Status.INFO, "click on 'view/edit' button");
         productPage.clickViewEditBag();
 
-        test.log(Status.INFO," @Test - Sanity test for a Product page ending");
+        test.log(Status.INFO, " @Test - Sanity test for a Product page ending");
     }
 
     //Method for test shoppingBag
@@ -323,39 +256,39 @@ public class SanityTest {
         }
 
         shoppingBag.clickGoToCheckoutButton();
-        test.log(Status.INFO," @Test - Sanity test for a Shopping Bag page ending");
+        test.log(Status.INFO, " @Test - Sanity test for a Shopping Bag page ending");
     }
 
     public void test_paymentPage() throws ParserConfigurationException, IOException, SAXException, InterruptedException {
 
-        test.log(Status.INFO,"@Test - Sanity test for a PaymentPage page starting");
+        test.log(Status.INFO, "@Test - Sanity test for a PaymentPage page starting");
 
         //creating an object for product page
         PaymentPage paymentPage = new PaymentPage();
 
 
         //selecting a credit card
-        test.log(Status.INFO,"selecting a credit card");
+        test.log(Status.INFO, "selecting a credit card");
         paymentPage.selectCreditCardRadio();
 
         //Enter a card number
-        test.log(Status.INFO,"Enter a card number");
+        test.log(Status.INFO, "Enter a card number");
         paymentPage.typeCardNumber(Utils.getData("CARD_NUMBER"));
 
         //Enter a name card's holder
-        test.log(Status.INFO,"Enter a name card's holder");
+        test.log(Status.INFO, "Enter a name card's holder");
         paymentPage.typeNameOfCardholder(Utils.getData("NAME_CARDHOLDER"));
 
 
         //Enter a month expiry date
-        test.log(Status.INFO,"Enter a month expiry date");
+        test.log(Status.INFO, "Enter a month expiry date");
         paymentPage.typeMonthExpiry(Utils.getData("YEAR_EXPIRY_DATE"));
 
         //Clicking on 'pay now' button
-        test.log(Status.INFO,"Clicking on 'pay now' button");
+        test.log(Status.INFO, "Clicking on 'pay now' button");
         paymentPage.clickPayOnButton();
 
-        test.log(Status.INFO , "@Test - Sanity test for a PaymentPage page  Ending");
+        test.log(Status.INFO, "@Test - Sanity test for a PaymentPage page  Ending");
 
     }
 
@@ -393,15 +326,12 @@ public class SanityTest {
         Utils.waiting();
         String actualTitle = Browser.getDriver().getTitle();
         System.out.println("actualTitle: " + actualTitle);
-        boolean equalsTitles =actualTitle.equals(expectedTitle);
-        if(equalsTitles)
-        {
-            System.out.println("The transition to the web "+ nameNewPage + " page was done successfully");
+        boolean equalsTitles = actualTitle.equals(expectedTitle);
+        if (equalsTitles) {
+            System.out.println("The transition to the web " + nameNewPage + " page was done successfully");
             test.log(Status.PASS, "The transition to the web " + nameNewPage + " page was done successfully ");
-        }
-        else
-        {
-            System.out.println("The transition to the web "+ nameNewPage + " page was fail");
+        } else {
+            System.out.println("The transition to the web " + nameNewPage + " page was fail");
             test.log(Status.FAIL, "The transition to the web " + nameNewPage + " page was fail");
             Utils.addScreenshot();
         }
@@ -410,16 +340,16 @@ public class SanityTest {
 
     //The method check if navigate to home page succeeded.and send report
     private void isSucceededTransitionTo_Home_Page() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        isSucceededTransitionTo_New_Page("home",Constants.TITLE_HOME_PAGE);
+        isSucceededTransitionTo_New_Page("home", Constants.TITLE_HOME_PAGE);
 
     }
 
     // The method Make sure the driver is actually on the desired page
-    private void isDesiredPath(String pageName,String expectedUrl) throws InterruptedException, IOException {
+    private void isDesiredPath(String pageName, String expectedUrl) throws InterruptedException, IOException {
         Utils.waiting();
         String curUrl = Browser.getDriver().getCurrentUrl();
         boolean isUrl = curUrl.equals(expectedUrl);
-        if(!isUrl)
+        if (!isUrl)
             Browser.getDriver().navigate().to(expectedUrl);
     }
 

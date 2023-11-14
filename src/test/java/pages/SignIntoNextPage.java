@@ -4,8 +4,12 @@ import infra.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.xml.sax.SAXException;
 
-   //The class defines locators && methods for login page
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+
+//The class defines locators && methods for login page
    public class SignIntoNextPage {
 
    //WebDriver driver;
@@ -28,14 +32,12 @@ import org.openqa.selenium.WebElement;
        }*/
 
     //The method type email
-    public void typeEmailId(String email)
-    {
+    public void typeEmailId(String email) throws IOException, ParserConfigurationException, SAXException {
         Browser.getDriver().findElement(emailLocator).sendKeys(email);
     }
 
     //The method type password
-    public void typePassword(String password)
-    {
+    public void typePassword(String password) throws IOException, ParserConfigurationException, SAXException {
         Browser.getDriver().findElement(passwordLocator).sendKeys(password);
     }
 

@@ -1,9 +1,11 @@
 package utils;
 
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import infra.Browser;
-import infra.Reporter;
+//import infra.Reporter;
+import infra.ExtendReport;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,9 +20,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class Utils {
+    private static ExtentTest test;
 
     //The method check if the webpage opened successfully
-    public static void isOpenPage(String url) throws IOException, ParserConfigurationException, SAXException {
+    public static void isOpenPage(String url) {
+        test= ExtendReport.getInstance().getTest();
+
         boolean pageOpened = false;
         try {
             Browser.getDriver().get(url);
@@ -30,25 +35,37 @@ public class Utils {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Reporter.getTestReport().log(Status.FATAL, "next site was not found " + e.getMessage());
+            test.log(Status.FATAL, "next site was not found " + e.getMessage());
             pageOpened = false;
             addScreenshot();
         } finally {
             if (pageOpened)
-                Reporter.getTestReport().log(Status.PASS, "Open webpage " + "Webpage opened successfully");
+                test.log(Status.PASS, "Open webpage " + "Webpage opened successfully");
         }
     }
 
 
     //The method waiting 4000 millis
-    public static void waiting() throws InterruptedException {
-        Thread.sleep(4000);
+    public static void waiting()  {
+        try {
+            Thread.sleep(2000);
+        }catch (InterruptedException i){
+            i.printStackTrace();
+        }
+
+
     }
 
 
-    public static void addScreenshot() throws IOException, ParserConfigurationException, SAXException {
-        String currentTime = String.valueOf(System.currentTimeMillis());
-        Reporter.getTestReport().pass("details", MediaEntityBuilder.createScreenCaptureFromPath(takeScreenShot(Constants.SCREEN_SHOT_PATH + currentTime)).build());
+    public static void addScreenshot()  {
+        test=ExtendReport.getInstance().getTest();
+        try {
+            String currentTime = String.valueOf(System.currentTimeMillis());
+            test.pass("details", MediaEntityBuilder.createScreenCaptureFromPath(takeScreenShot(Constants.SCREEN_SHOT_PATH + currentTime)).build());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     //A function required to add a screenshot
