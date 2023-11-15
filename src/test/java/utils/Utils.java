@@ -5,6 +5,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import infra.Browser;
 //import infra.Reporter;
+import infra.ErrorsManage;
 import infra.ExtendReport;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -29,18 +30,17 @@ public class Utils {
         boolean pageOpened = false;
         try {
             Browser.getDriver().get(url);
-//            String firstWindowString = driver.getWindowHandle();
-//            System.out.println("Window String: " + firstWindowString);
             pageOpened = true;
 
         } catch (Exception e) {
             e.printStackTrace();
             test.log(Status.FATAL, "next site was not found " + e.getMessage());
+            ErrorsManage.setNumError();
             pageOpened = false;
             addScreenshot();
         } finally {
             if (pageOpened)
-                test.log(Status.PASS, "Open webpage " + "Webpage opened successfully");
+                test.log(Status.PASS, "Open webpage -" + "Webpage opened successfully");
         }
     }
 

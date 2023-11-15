@@ -3,17 +3,15 @@ package testCases;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import infra.Browser;
+import infra.ErrorsManage;
 import infra.ExtendReport;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.xml.sax.SAXException;
 import pages.*;
 import utils.Utils;
+
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
@@ -32,23 +30,7 @@ public class SanityTest {
 
 
     @BeforeClass
-    public static void beforeClass() throws ParserConfigurationException, IOException, SAXException {
-
-       /* ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(Constants.REPORT_FILE_PATH);
-
-        // attach reporter
-        extent = new ExtentReports();
-        extent.attachReporter(htmlReporter);
-        // name your test and add description
-        test = extent.createTest("SanityTest", "Sanity test for 'next' site");
-
-        // add custom system info
-        extent.setSystemInfo("Project Development Language: ", "Java");
-        extent.setSystemInfo("Development Environment IDE: ", "IntelliJ idea");
-        extent.setSystemInfo("Third Party Software: ", "Selenium WebDriver, Junit, ExtentReports, Maven");
-        extent.setSystemInfo("URL: ", Utils.getData("URL"));
-        extent.setSystemInfo("Tester", "Efrat Cohen");
-*/
+    public static void beforeClass()  {
 
         extent = ExtendReport.getInstance().getExtent();
 
@@ -122,31 +104,31 @@ public class SanityTest {
 
     @Test
     //The test performs sanity test on the home page
-    public void test02_HomePage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        //test.log(Status.INFO, "@Test - Sanity test for a Home page  starting");
+    //The test checks the correctness of the links (one from each group), as well as the correctness of the language change
+    public void test02_HomePage() {
         test = ExtendReport.getInstance().getTest();
-        // log results
         test.log(Status.INFO, "Beginning test homePage");
+        test.log(Status.INFO, "Checking links on the 'home page' and changing language");
+
         //create object of HomePage
         HomePage homePage = new HomePage();
 
         Utils.waiting();
 
-        //click on links from header links and sidebar
-        test.log(Status.INFO, "click on 'Home' link from header links ");
-        //addScreenshot();
+        //A call to the function to check the links
         homePage.clickOnLinksAndValidateTitle();
+
+        //Calling the function to check the language change
         homePage.changeLanguage();
 
-        //checking if the changing language succeeded
-        //isSucceededTransitionTo_New_Page( "Hebrew",Constants.TITLE_HEBREW_HOME_PAGE);
-
-        //return to english
+        //Return to english
         Browser.getDriver().navigate().back();
         Utils.waiting();
-
-        ////A reference to the function that will test if navigate to the new page successful and reports on it
-        //isSucceededTransitionTo_New_Page("english",Constants.TITLE_HOME_PAGE);
+        if (ErrorsManage.getNumError() > 0) {
+            System.out.println(ErrorsManage.getNumError() + " errors were found in this test");
+            test.log(Status.WARNING, ErrorsManage.getNumError() + " errors were found in this test");
+            Assert.fail();
+        }
 
         test.log(Status.INFO, " @Test - Sanity test for a Home page ending");
     }
@@ -172,7 +154,7 @@ public class SanityTest {
         // build and flush report
         extent.flush();
         Browser.getDriver().quit();
-        test.log(Status.INFO, "@After class  was performed " );
+        test.log(Status.INFO, "@After class  was performed ");
     }
 
 

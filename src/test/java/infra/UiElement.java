@@ -8,12 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import org.xml.sax.SAXException;
 import utils.Utils;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.util.List;
 
 public class UiElement {
 
@@ -174,6 +169,7 @@ public class UiElement {
         }
 
         //reporter.error("The element [" + this.desc + "] is not exists", by.toString());
+        ErrorsManage.setNumError();
         return false;
     }
 
@@ -182,44 +178,24 @@ public class UiElement {
         return this.element != null;
     }
 
-    public boolean isLinkTransitionTo() throws IOException, ParserConfigurationException, SAXException {
-        boolean bool = true;
+    public void isLinkTransitionTo()  {
         Utils.waiting();
         String actualTitle = Browser.getDriver().getTitle();
-        System.out.println("actualTitle: " + actualTitle);
+        System.out.println("actualTitle: [" + actualTitle  + "]");
         boolean equalsTitles = actualTitle.equals(title);
         if (equalsTitles) {
-            System.out.println("The transition to the web " + title + " page was done successfully");
-            test.log(Status.PASS, "The transition to the web " + title + " page was done successfully ");
+            System.out.println("The transition to the web [" + title + "] page was done successfully");
+            test.log(Status.PASS, "The transition to the web [" + title + "] page was done successfully ");
         } else {
-            bool = false;
-            System.out.println("The transition to the web " + title + " page was fail");
-            test.log(Status.FAIL, "The transition to the web " + title + " page was fail");
+            System.out.println("The transition to the web [" + title + "] page was fail");
+            test.log(Status.FAIL, "The transition to the web [" + title + "] page was fail");
+            ErrorsManage.setNumError();
             Utils.addScreenshot();
         }
-        return bool;
     }
 
     protected void findElement() {
-        /*int count = 10;
-        while (count-- > 0) {
-            // SearchContext _root = Browser.getDriver();
 
-           *//* if (root != null) {
-                root.findElement();
-                _root = root.element;
-            }
-*//*
-            List<WebElement> elements = Browser.getDriver().findElements(this.by);
-
-            if (!elements.isEmpty()) {
-                this.element = elements.get(index);
-                //Browser.runJS("arguments[0].scrollIntoView()", element);
-
-                //Utils.sleepMS(500);
-                break;
-            }
-        }*/
         element=Browser.getDriver().findElement(by);
     }
 
