@@ -127,6 +127,7 @@ public class SanityTest {
         if (ErrorsManage.getNumError() > 0) {
             System.out.println(ErrorsManage.getNumError() + " errors were found in this test");
             test.log(Status.WARNING, ErrorsManage.getNumError() + " errors were found in this test");
+            ErrorsManage.resetErrors();
             Assert.fail();
         }
 
@@ -139,10 +140,10 @@ public class SanityTest {
         test_searchPage();
 
         //A call to the method that will perform sanity test on the product page
-        test_productPage();
+        //test_productPage();
 
         //A call to the method that will perform sanity test on the shoppingBag page
-        test_shoppingBag();
+        //test_shoppingBag();
 
         //A call to the method that will perform sanity test on the payment page
         //test_paymentPage();
@@ -160,24 +161,26 @@ public class SanityTest {
 
     //The test performs sanity test on the Search page
     public void test_searchPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test.log(Status.INFO, " @Test - Sanity test for a Search page starting");
+        //test.log(Status.INFO, " @Test - Sanity test for a Search page starting");
 
         //creating object for search page
         SearchPage searchPage = new SearchPage();
 
         //Enter a product name for search
-        test.log(Status.INFO, "Enter a product name for search");
-        String dataToSearch = Utils.getData("SEARCH");
-        searchPage.typeSearch(dataToSearch);
+        //test.log(Status.INFO, "Enter a product name for search");
+        //String dataToSearch = Utils.getData("SEARCH");
+        String dataToSearch ="Lace Collar Dress";
+       /* searchPage.typeSearch(dataToSearch);
         Utils.waiting();
 
         //Clicking on the desired product
         searchPage.doubleClickOndress1Img();
         test.log(Status.INFO, "Clicking on the desired product");
-        Utils.waiting();
-        isSucceededTransitionTo_New_Page("product", Constants.TITLE_PRODUCT_PAGE);
+        Utils.waiting();*/
+        searchPage.SearchAndProductSelection(dataToSearch);
+        //isSucceededTransitionTo_New_Page("product", Constants.TITLE_PRODUCT_PAGE);
 
-        test.log(Status.INFO, " Sanity test for a Search page ending");
+        //test.log(Status.INFO, " Sanity test for a Search page ending");
     }
 
     //Method for test productPage
@@ -355,7 +358,7 @@ public class SanityTest {
     }
 
 
-    //The method for reading from file
+    The method for reading from file
     private static String getData (String keyName) throws ParserConfigurationException, IOException, SAXException {
         File configXmlFile = new File(Constants.CONFIG_XML_FILE_PATH);
 

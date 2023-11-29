@@ -5,6 +5,7 @@ package infra;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
@@ -142,6 +143,20 @@ public class UiElement {
         findElement();
         element.clear();
         element.sendKeys(str);
+        //Utils.sleep(1);
+//        reporter.takeScreenshot();
+    }
+
+    public void inputWithEnter(String str) {
+        if (str == null) {
+            return;
+        }
+
+//        reporter.hasScreenshot().message("Input to element [" + this.desc + "] with value [" + str + "]", by.toString());
+        findElement();
+        element.clear();
+        element.sendKeys(str);
+        element.sendKeys(Keys.ENTER);
         //Utils.sleep(1);
 //        reporter.takeScreenshot();
     }

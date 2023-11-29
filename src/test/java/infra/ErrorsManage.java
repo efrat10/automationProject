@@ -10,4 +10,8 @@ public class ErrorsManage {
     public static void setNumError() {
         numError++;
     }
+
+    public static void resetErrors(){
+        numError=0;
+    }
 }
