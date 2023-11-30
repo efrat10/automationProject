@@ -30,7 +30,7 @@ public class SanityTest {
 
 
     @BeforeClass
-    public static void beforeClass()  {
+    public static void beforeClass() {
 
         extent = ExtendReport.getInstance().getExtent();
 
@@ -136,6 +136,7 @@ public class SanityTest {
 
     @Test
     public void test03_ProductBuyingProcess() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
+
         //A call to the method that will perform sanity test on the Search page
         test_searchPage();
 
@@ -161,14 +162,15 @@ public class SanityTest {
 
     //The test performs sanity test on the Search page
     public void test_searchPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        //test.log(Status.INFO, " @Test - Sanity test for a Search page starting");
+        test = ExtendReport.getInstance().getTest();
+        test.log(Status.INFO, " @Test - Sanity test for a Search page starting");
 
         //creating object for search page
         SearchPage searchPage = new SearchPage();
 
         //Enter a product name for search
-        //test.log(Status.INFO, "Enter a product name for search");
-        //String dataToSearch = Utils.getData("SEARCH");
+        test.log(Status.INFO, "Enter a product name for search");
+        //String dataToSearch = Utils.getData("ITEM_SEARCH");
         String dataToSearch ="Lace Collar Dress";
        /* searchPage.typeSearch(dataToSearch);
         Utils.waiting();

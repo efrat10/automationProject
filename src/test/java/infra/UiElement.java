@@ -15,8 +15,8 @@ public class UiElement {
 
     private final By by;
     private final String desc;
-    private final String title;
-    protected WebElement element;
+    private  String title;
+    protected WebElement element=null;
     private int index = 0;
     private static ExtentTest test;
 
@@ -197,7 +197,27 @@ public class UiElement {
         Utils.waiting();
         String actualTitle = Browser.getDriver().getTitle();
         System.out.println("actualTitle: [" + actualTitle  + "]");
-        boolean equalsTitles = actualTitle.equals(title);
+        boolean equalsTitles = actualTitle.equalsIgnoreCase(title);
+        if (equalsTitles) {
+            System.out.println("The transition to the web [" + title + "] page was done successfully");
+            test.log(Status.PASS, "The transition to the web [" + title + "] page was done successfully ");
+        } else {
+            System.out.println("The transition to the web [" + title + "] page was fail");
+            test.log(Status.FAIL, "The transition to the web [" + title + "] page was fail");
+            ErrorsManage.setNumError();
+            Utils.addScreenshot();
+        }
+    }
+    public String getAttribute(String attribute){
+        findElement();
+        return element.getAttribute(attribute);
+    }
+    public void isLinkTransitionTo(String title)  {
+
+        Utils.waiting();
+        String actualTitle = Browser.getDriver().getTitle();
+        System.out.println("actualTitle: [" + actualTitle  + "]");
+        boolean equalsTitles = actualTitle.equalsIgnoreCase(title);
         if (equalsTitles) {
             System.out.println("The transition to the web [" + title + "] page was done successfully");
             test.log(Status.PASS, "The transition to the web [" + title + "] page was done successfully ");
@@ -210,7 +230,7 @@ public class UiElement {
     }
 
     protected void findElement() {
-
+        if(element==null)
         element=Browser.getDriver().findElement(by);
     }
 

@@ -4,6 +4,7 @@ package pages;
 import infra.Browser;
 import infra.UiElement;
 import org.openqa.selenium.By;
+import testCases.Constants;
 import utils.Utils;
 
 //The class defines locators && methods for search page
@@ -27,9 +28,15 @@ public class SearchPage {
         productSearchInput.inputWithEnter(item);
 
         Utils.waiting();
-        String title= Browser.getDriver().getTitle();
-        System.out.println(title);
+        String titleExpect=item + " from | Next Israel";
+        productSearchInput.isLinkTransitionTo(titleExpect);
+
         dress1Img.doubleClick();
+        Utils.waiting();
+        System.out.println(Browser.getDriver().getTitle());
+
+        dress1Img.isLinkTransitionTo(Constants.TITLE_PRODUCT_PAGE);
+
     }
 
     //constructor

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+
+    <SITE>
+        <URL>https://www.next.co.il/en</URL>
+        <ITEM_SEARCH>Lace Collar Dress</ITEM_SEARCH>
+        <!--The email and password are correct -->
+        <EMAIL>ec25@gmail.com</EMAIL>
+        <PASSWORD>abcd1234</PASSWORD>
+    </SITE>
+</config>
