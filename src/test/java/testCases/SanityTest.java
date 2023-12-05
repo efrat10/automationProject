@@ -98,7 +98,6 @@ public class SanityTest {
 
         Browser.getDriver().navigate().back();
 
-        test.log(Status.INFO, " @Test - Sanity test for a Verify Login page are ending");
 
     }
 
@@ -107,7 +106,7 @@ public class SanityTest {
     //The test checks the correctness of the links (one from each group), as well as the correctness of the language change
     public void test02_HomePage() {
         test = ExtendReport.getInstance().getTest();
-        test.log(Status.INFO, "Beginning test homePage");
+        test.log(Status.INFO, " @Test - Sanity test for home Page starting");
         test.log(Status.INFO, "Checking links on the 'home page' and changing language");
 
         //create object of HomePage
@@ -124,19 +123,12 @@ public class SanityTest {
         //Return to english
         Browser.getDriver().navigate().back();
         Utils.waiting();
-        if (ErrorsManage.getNumError() > 0) {
-            System.out.println(ErrorsManage.getNumError() + " errors were found in this test");
-            test.log(Status.WARNING, ErrorsManage.getNumError() + " errors were found in this test");
-            ErrorsManage.resetErrors();
-            Assert.fail();
-        }
 
-        test.log(Status.INFO, " @Test - Sanity test for a Home page ending");
     }
 
     @Test
     public void test03_ProductBuyingProcess() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-
+        test.log(Status.INFO, " @Test - Sanity test for a Product Buying Process starting");
         //A call to the method that will perform sanity test on the Search page
         test_searchPage();
 
@@ -148,6 +140,18 @@ public class SanityTest {
 
         //A call to the method that will perform sanity test on the payment page
         //test_paymentPage();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (ErrorsManage.getNumError() > 0) {
+            System.out.println(ErrorsManage.getNumError() + " errors were found in this test");
+            test.log(Status.WARNING, ErrorsManage.getNumError() + " errors were found in this test");
+            ErrorsManage.resetErrors();
+            Assert.fail();
+        }
+
+        test.log(Status.INFO, " @Test -  ending");
     }
 
     @AfterClass
@@ -163,26 +167,16 @@ public class SanityTest {
     //The test performs sanity test on the Search page
     public void test_searchPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
         test = ExtendReport.getInstance().getTest();
-        test.log(Status.INFO, " @Test - Sanity test for a Search page starting");
+        test.log(Status.INFO, "Search And Product Selection ");
 
         //creating object for search page
         SearchPage searchPage = new SearchPage();
 
         //Enter a product name for search
         test.log(Status.INFO, "Enter a product name for search");
-        //String dataToSearch = Utils.getData("ITEM_SEARCH");
-        String dataToSearch ="Lace Collar Dress";
-       /* searchPage.typeSearch(dataToSearch);
-        Utils.waiting();
-
-        //Clicking on the desired product
-        searchPage.doubleClickOndress1Img();
-        test.log(Status.INFO, "Clicking on the desired product");
-        Utils.waiting();*/
+        String dataToSearch = Utils.getData("ITEM_SEARCH");
         searchPage.SearchAndProductSelection(dataToSearch);
-        //isSucceededTransitionTo_New_Page("product", Constants.TITLE_PRODUCT_PAGE);
 
-        //test.log(Status.INFO, " Sanity test for a Search page ending");
     }
 
     //Method for test productPage
@@ -234,8 +228,7 @@ public class SanityTest {
         //Checking whether the quantity selection has been updated in the shopping bag
         Utils.waiting();
         boolean bool = shoppingBag.isQtyBugImgUpdate();
-        if (bool)
-            test.log(Status.PASS, "The quantity in the bag image has been updated");
+        if (bool) test.log(Status.PASS, "The quantity in the bag image has been updated");
         else {
             test.log(Status.FAIL, "The quantity in the bag image has not been updated");
 
@@ -336,12 +329,11 @@ public class SanityTest {
         Utils.waiting();
         String curUrl = Browser.getDriver().getCurrentUrl();
         boolean isUrl = curUrl.equals(expectedUrl);
-        if (!isUrl)
-            Browser.getDriver().navigate().to(expectedUrl);
+        if (!isUrl) Browser.getDriver().navigate().to(expectedUrl);
     }
 
     //The method add screenshot
-   /* public static void addScreenshot() throws IOException {
+    /*public static void addScreenshot() throws IOException {
         String currentTime = String.valueOf(System.currentTimeMillis());
         test.pass("details", MediaEntityBuilder.createScreenCaptureFromPath(takeScreenShot(Constants.SCREEN_SHOT_PATH + currentTime)).build());
     }
@@ -358,28 +350,7 @@ public class SanityTest {
         }
         return ImagesPath+".png";
     }
-
-
-    The method for reading from file
-    private static String getData (String keyName) throws ParserConfigurationException, IOException, SAXException {
-        File configXmlFile = new File(Constants.CONFIG_XML_FILE_PATH);
-
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = null;
-
-        dBuilder = dbFactory.newDocumentBuilder();
-
-        Document doc = null;
-
-        assert dBuilder != null;
-        doc = dBuilder.parse(configXmlFile);
-
-        if (doc != null) {
-            doc.getDocumentElement().normalize();
-        }
-        assert doc != null;
-        return doc.getElementsByTagName(keyName).item(0).getTextContent();
-    }
 */
+
 
 }

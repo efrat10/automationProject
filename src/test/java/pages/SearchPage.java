@@ -17,10 +17,10 @@ public class SearchPage {
     private final UiElement dress1Img = new UiElement("dress1Img", By.cssSelector("div[class='swiper-slide swiper-slide-active'] [data-testid='product_summary_image_d58846']"));
 
     //The function searches and selects a product
-    public void SearchAndProductSelection(String item){
+    public void SearchAndProductSelection(String item) {
         productSearchInput.inputWithEnter(item);
         Utils.waiting();
-        String titleExpect=item + " from | Next Israel";
+        String titleExpect = item + " from | Next Israel";
         productSearchInput.isLinkTransitionTo(titleExpect);
         dress1Img.doubleClick();
         Utils.waiting();

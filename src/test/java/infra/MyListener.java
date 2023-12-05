@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import utils.Utils;
 
+import java.util.Arrays;
+
 
 // Custom listener class
 public class MyListener extends AbstractWebDriverEventListener {
@@ -28,16 +30,18 @@ public class MyListener extends AbstractWebDriverEventListener {
     }
 
 
-    @Override
+   /* @Override
     public void beforeFindBy(By by, WebElement element, WebDriver driver) {
         System.out.println("Finding element: " +"[" + by + "]");
 
         test.log(Status.INFO, "Finding element: " +"[" + by + "]");
-    }
+    }*/
 
     @Override
     public void afterFindBy(By by, WebElement element, WebDriver driver) {
         System.out.println("Element found: " +"[" + by + "]" );
+        test.log(Status.INFO, "Element found: " +"[" + by + "]");
+
     }
 
 
@@ -54,13 +58,14 @@ public class MyListener extends AbstractWebDriverEventListener {
     }
 
     public void beforeClickOn(WebElement element, WebDriver driver) {
-        System.out.println("beforeClickOn [" + element.getTagName() + " " + element.getText()+ "]");
+        System.out.println("beforeClickOn [" + element.getText()+ "]");
     }
 
     public void afterClickOn(WebElement element, WebDriver driver) {
         test.log(Status.INFO, "afterClickOn [" + element.getTagName() + " " + element.getText() + "]");
         System.out.println("afterClickOn [" + element.getTagName() + " " + element.getText() + "]");
     }
+
 
 
 }

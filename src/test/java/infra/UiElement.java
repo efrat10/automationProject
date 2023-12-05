@@ -69,6 +69,7 @@ public class UiElement {
     public void click() {
         //reporter.hasScreenshot().message("Click on the element [" + this.desc + "]", by.toString());
         //reporter.message("Click on the element [" + this.desc + "]", by.toString());
+        test.log(Status.INFO,"Click on the element [" + this.desc + "]  [" + by + "]");
         findElement();
         element.click();
         //Utils.sleepMS(500);
@@ -77,6 +78,7 @@ public class UiElement {
 
     public void doubleClick() {
         findElement();
+        test.log(Status.INFO,"DoubleClick on the element [" + this.desc + "]  [" + by + "]");
         Actions act = new Actions(Browser.getDriver());
         act.doubleClick(element);
         act.build().perform();
@@ -157,6 +159,7 @@ public class UiElement {
         element.clear();
         element.sendKeys(str);
         element.sendKeys(Keys.ENTER);
+        test.log(Status.INFO,"Input to element [" + this.desc + "] with value [" + str + "]");
         //Utils.sleep(1);
 //        reporter.takeScreenshot();
     }
@@ -208,10 +211,7 @@ public class UiElement {
             Utils.addScreenshot();
         }
     }
-    public String getAttribute(String attribute){
-        findElement();
-        return element.getAttribute(attribute);
-    }
+
     public void isLinkTransitionTo(String title)  {
 
         Utils.waiting();
@@ -230,8 +230,11 @@ public class UiElement {
     }
 
     protected void findElement() {
-        if(element==null)
-        element=Browser.getDriver().findElement(by);
+        if(element==null) {
+            test.log(Status.INFO,"Finding element: [" + desc + "] [" + by + "]");
+
+            element = Browser.getDriver().findElement(by);
+        }
     }
 
     public void select(String str) {
