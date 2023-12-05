@@ -1,19 +1,24 @@
 package pages;
 
 import infra.Browser;
+import infra.UiElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.xml.sax.SAXException;
+import utils.Utils;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 public class ProductPage {
-    //WebDriver driver;
 
-
-    //Locator for drop comboBox color
-    private final By colorComboBoxLocator = By.xpath("//div[@id='dk_container_Colour-485269']");
-
-    //Locator for specific color
-    private final By specificColorLocator = By.linkText("Pink");
+    //Creating an object for comboBoxColor
+    private final UiElement comboBoxColor = new UiElement("comboBoxColor",By.cssSelector("div[id*=dk_container_Colour-] .dk_label"));
+    //Imports a specific color from a config file for xpath of specificColor element
+    private final String color = Utils.getData("CHOOSE_COLOR");
+    //Creating an object for specificColor
+    private final UiElement specificColor = new UiElement(color + " COLOR",By.xpath("//li/a[contains(text(),'"+color +"')]"));
 
 
     //Locator for drop comboBox size
@@ -37,29 +42,18 @@ public class ProductPage {
     //Locator for 'checkout' green button (after click 'add to bag' button)
     private final By checkoutButtonLocator = By.xpath("//span[contains(text(),'CHECKOUT')]");
 
-
-    //constructor
-    /*public ProductPage(WebDriver driver) {
-        this.driver = driver;
-    }*/
-
-    /* Select drpColor = new Select(driver.findElement(colorComboBoxLocator));
-     driver.findElement(colorComboBoxLocator).click();
-     driver.findElement(specificColorLocator).click();*/
-    //The method for select color from comboBox
-    public void selectColor(int index) {
-        drpColor.selectByIndex(index);
+    public ProductPage() throws ParserConfigurationException, IOException, SAXException {
     }
 
-    //The method selects a certain color from the list of colors
-    public void clickSelectColor() {
+    public void chooseColor(){
+        comboBoxColor.click();
+        Utils.waiting();
+        specificColor.click();
+        Utils.waiting();
+
     }
 
-    Select drpColor = new Select(Browser.getDriver().findElement(colorComboBoxLocator));
-
-    public void selectColor(String color) {
-        drpColor.selectByVisibleText(color);
-    }
+/*
 
     //The method selects a certain size from the list of sizes
     public void clickSelectSize() throws InterruptedException {
@@ -98,5 +92,6 @@ public class ProductPage {
         drpQuantity.selectByVisibleText(quantity);
     }
 
+*/
 
 }

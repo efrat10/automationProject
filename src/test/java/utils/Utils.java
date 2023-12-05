@@ -48,7 +48,7 @@ public class Utils {
     //The method waiting 4000 millis
     public static void waiting()  {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         }catch (InterruptedException i){
             i.printStackTrace();
         }

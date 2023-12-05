@@ -41,6 +41,7 @@ public class Browser {
             eventDriver.register(listener);
 
             // Navigate to the desired website
+            //eventDriver.get("https://www.next.co.il/en");
             eventDriver.get("https://www.next.co.il/en");
             Utils.isOpenPage("https://www.next.co.il/en");
 

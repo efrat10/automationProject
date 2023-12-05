@@ -25,7 +25,7 @@ public class MyListener extends AbstractWebDriverEventListener {
 
 
     public void onException(Throwable throwable, WebDriver driver) {
-        test.log(Status.INFO, throwable.getMessage());
+        test.log(Status.FAIL, throwable.getMessage());
         Utils.addScreenshot();
     }
 

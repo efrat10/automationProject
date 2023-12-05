@@ -12,7 +12,10 @@ import org.xml.sax.SAXException;
 import pages.*;
 import utils.Utils;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -33,6 +36,7 @@ public class SanityTest {
     public static void beforeClass() {
 
         extent = ExtendReport.getInstance().getExtent();
+        test = ExtendReport.getInstance().getTest();
 
 
         /*boolean driverEstablish = false;
@@ -99,13 +103,13 @@ public class SanityTest {
         Browser.getDriver().navigate().back();
 
 
+
     }
 
     @Test
     //The test performs sanity test on the home page
     //The test checks the correctness of the links (one from each group), as well as the correctness of the language change
     public void test02_HomePage() {
-        test = ExtendReport.getInstance().getTest();
         test.log(Status.INFO, " @Test - Sanity test for home Page starting");
         test.log(Status.INFO, "Checking links on the 'home page' and changing language");
 
@@ -128,12 +132,12 @@ public class SanityTest {
 
     @Test
     public void test03_ProductBuyingProcess() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test.log(Status.INFO, " @Test - Sanity test for a Product Buying Process starting");
+       test.log(Status.INFO, " @Test - Sanity test for a Product Buying Process starting");
         //A call to the method that will perform sanity test on the Search page
         test_searchPage();
 
         //A call to the method that will perform sanity test on the product page
-        //test_productPage();
+        test_productPage();
 
         //A call to the method that will perform sanity test on the shoppingBag page
         //test_shoppingBag();
@@ -176,28 +180,23 @@ public class SanityTest {
         test.log(Status.INFO, "Enter a product name for search");
         String dataToSearch = Utils.getData("ITEM_SEARCH");
         searchPage.SearchAndProductSelection(dataToSearch);
+        //isSucceededTransitionTo_New_Page("product", Constants.TITLE_PRODUCT_PAGE);
+
+        //test.log(Status.INFO, " Sanity test for a Search page ending");
 
     }
 
     //Method for test productPage
     public void test_productPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test.log(Status.INFO, " @Test - Sanity test for a Product page starting");
-
+        test.log(Status.INFO, "Choice of color and size in the selected product");
         //creating object for product page
         ProductPage productPage = new ProductPage();
+        test.log(Status.INFO,"choice color");
+        productPage.chooseColor();
 
-        System.out.println(Browser.getDriver().getTitle());
-
-        //Choosing a specific color
-        test.log(Status.INFO, "Choosing a specific color");
-        //productPage.selectColor("Navy Blue");
-        //productPage.selectColor(3);
-        productPage.clickSelectColor();
-
-        Utils.waiting();
 
         //Choosing a specific size
-        test.log(Status.INFO, "Choosing a specific size");
+       /* test.log(Status.INFO, "Choosing a specific size");
         //productPage.selectSize(getData("SIZE"));
         productPage.clickSelectSize();
         Utils.waiting();
@@ -211,7 +210,7 @@ public class SanityTest {
         test.log(Status.INFO, "click on 'view/edit' button");
         productPage.clickViewEditBag();
 
-        test.log(Status.INFO, " @Test - Sanity test for a Product page ending");
+        test.log(Status.INFO, " @Test - Sanity test for a Product page ending");*/
     }
 
     //Method for test shoppingBag
@@ -228,7 +227,8 @@ public class SanityTest {
         //Checking whether the quantity selection has been updated in the shopping bag
         Utils.waiting();
         boolean bool = shoppingBag.isQtyBugImgUpdate();
-        if (bool) test.log(Status.PASS, "The quantity in the bag image has been updated");
+        if (bool)
+            test.log(Status.PASS, "The quantity in the bag image has been updated");
         else {
             test.log(Status.FAIL, "The quantity in the bag image has not been updated");
 
@@ -329,7 +329,8 @@ public class SanityTest {
         Utils.waiting();
         String curUrl = Browser.getDriver().getCurrentUrl();
         boolean isUrl = curUrl.equals(expectedUrl);
-        if (!isUrl) Browser.getDriver().navigate().to(expectedUrl);
+        if (!isUrl)
+            Browser.getDriver().navigate().to(expectedUrl);
     }
 
     //The method add screenshot
@@ -351,6 +352,7 @@ public class SanityTest {
         return ImagesPath+".png";
     }
 */
+
 
 
 }
