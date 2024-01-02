@@ -193,6 +193,14 @@ public class SanityTest {
         ProductPage productPage = new ProductPage();
         test.log(Status.INFO,"choice color");
         productPage.chooseColor();
+        Utils.waiting();
+        productPage.chooseSize();
+
+        //click on add to bag button
+        test.log(Status.INFO, "click on add to bag button");
+        productPage.clickAddToBagButton();
+        Utils.waiting();
+
 
 
         //Choosing a specific size

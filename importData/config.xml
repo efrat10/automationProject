@@ -3,8 +3,10 @@
 
     <SITE>
         <URL>https://www.next.co.il/en</URL>
-        <ITEM_SEARCH>Lace Collar Dress</ITEM_SEARCH>
-        <CHOOSE_COLOR>Red Check</CHOOSE_COLOR>
+        <!--ITEM_SEARCH>Lace Collar Dress</ITEM_SEARCH>-->
+        <ITEM_SEARCH>Corsage Occasion Dress</ITEM_SEARCH>
+        <CHOOSE_COLOR>Mint Green</CHOOSE_COLOR>
+        <CHOOSE_SIZE>6-9 Months (UK ) (EU 68-74cm) - ₪ 85</CHOOSE_SIZE>
         <!--The email and password are correct -->
         <EMAIL>ec25@gmail.com</EMAIL>
         <PASSWORD>abcd1234</PASSWORD>

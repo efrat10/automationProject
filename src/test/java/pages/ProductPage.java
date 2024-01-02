@@ -14,18 +14,19 @@ import java.io.IOException;
 public class ProductPage {
 
     //Creating an object for comboBoxColor
-    private final UiElement comboBoxColor = new UiElement("comboBoxColor",By.cssSelector("div[id*=dk_container_Colour-] .dk_label"));
+    private final UiElement comboBoxColor = new UiElement("comboBoxColor",By.cssSelector("[id*=dk_container_Colour-] .dk_label"));
     //Imports a specific color from a config file for xpath of specificColor element
     private final String color = Utils.getData("CHOOSE_COLOR");
     //Creating an object for specificColor
     private final UiElement specificColor = new UiElement(color + " COLOR",By.xpath("//li/a[contains(text(),'"+color +"')]"));
 
+    //Creating an object for comboBoxSize
+    private final UiElement comboBoxSize = new UiElement("comboBoxSize",By.cssSelector("[id*='dk_container_Size']"));
+    //Imports a specific size from a config file for xpath of specificColor element
+    private final String size = Utils.getData("CHOOSE_SIZE");
+    //Creating an object for specificSize
+    private final UiElement specificSize = new UiElement(size ,By.xpath("//li/a[contains(text(),'"+size +"')]"));
 
-    //Locator for drop comboBox size
-    private final By sizeComboBoxLocator = By.cssSelector("#dk_container_Size-M16-308");
-
-    //Locator for specific size
-    private final By specificSizeLocator = By.linkText("6-9 Months (UK ) (EU 68-74cm) - ₪ 137");
 
 
     //Locator for 'add to bug' button
@@ -44,13 +45,24 @@ public class ProductPage {
 
     public ProductPage() throws ParserConfigurationException, IOException, SAXException {
     }
-
+    //The method selects a certain color from the list of sizes
     public void chooseColor(){
         comboBoxColor.click();
         Utils.waiting();
         specificColor.click();
         Utils.waiting();
 
+    }
+    //The method selects a certain size from the list of sizes
+    public void chooseSize(){
+        comboBoxSize.click();
+        Utils.waiting();
+        specificSize.click();
+        Utils.waiting();
+    }
+    //The method click on 'add to bag' button
+    public void clickAddToBagButton() {
+        Browser.getDriver().findElement(addToBagButtonLocator).click();
     }
 
 /*

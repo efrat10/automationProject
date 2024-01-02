@@ -241,7 +241,8 @@ public class UiElement {
         findElement();
         //reporter.message("Select from drop-down [" + this.desc + "] the option: " + str, str + "\r\n" + by.toString());
         Select select = new Select(element);
-        select.selectByVisibleText(str);
+        //select.selectByVisibleText(str);
+        select.selectByValue(str);
     }
 
    /* public boolean validateChooseRadio() {

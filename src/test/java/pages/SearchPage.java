@@ -14,7 +14,9 @@ public class SearchPage {
     private final UiElement productSearchInput = new UiElement("productSearchInput", By.cssSelector("#header-big-screen-search-box"));
 
     //Creating an object for first choose in search (dress img)
-    private final UiElement dress1Img = new UiElement("dress1Img", By.cssSelector("div[class='swiper-slide swiper-slide-active'] [data-testid='product_summary_image_d58846']"));
+    //private final UiElement dress1Img = new UiElement("dress1Img", By.cssSelector("div[class='swiper-slide swiper-slide-active'] [data-testid='product_summary_image_d58846']"));
+    private final UiElement dress1Img = new UiElement("dress1Img", By.cssSelector("a[tabindex='0'] img[alt*='Rose Pink Corsage Occasion Dress']"));
+    //private final UiElement dress1Img = new UiElement("dress1Img", By.cssSelector("div[class='swiper-slide swiper-slide-active'] [data-testid='product_summary_image_d58846']"));
 
     //The function searches and selects a product
     public void SearchAndProductSelection(String item) {
