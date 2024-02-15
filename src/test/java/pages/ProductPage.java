@@ -2,7 +2,9 @@ package pages;
 
 import infra.Browser;
 import infra.UiElement;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.xml.sax.SAXException;
@@ -26,16 +28,11 @@ public class ProductPage {
     private final String size = Utils.getData("CHOOSE_SIZE");
     //Creating an object for specificSize
     private final UiElement specificSize = new UiElement(size ,By.xpath("//li/a[contains(text(),'"+size +"')]"));
+    //Creating an object for 'add to bug' button
+    private final UiElement addToBugBtn = new UiElement("'add to bug' button",By.xpath("//a[contains(text(),'Add To Bag')]"));
+    //Creating an object for 'view edit Bag' button
+    private final UiElement viewEditBagBtn = new UiElement("'view edit Bag' button",By.xpath("//a[contains(text(),'VIEW/EDIT BAG')]"));
 
-
-
-    //Locator for 'add to bug' button
-    //private By addToBagButtonLocator = By.linkText("Add To Bag");
-    private final By addToBagButtonLocator = By.xpath("//a[contains(text(),'Add To Bag')]");
-
-
-    //Locator for 'view or edit bag' button (after click 'add to bag' button)
-    private final By viewEditBagButtonLocator = By.xpath("//span[contains(text(),'VIEW/EDIT BAG')]");
 
     //Locator for comboBox 'quantity' (after click 'view or edit bag' button)
     private final By quantityDrpLocator = By.id("Qty_2");
@@ -62,7 +59,14 @@ public class ProductPage {
     }
     //The method click on 'add to bag' button
     public void clickAddToBagButton() {
-        Browser.getDriver().findElement(addToBagButtonLocator).click();
+        //Browser.getDriver().findElement(addToBagButtonLocator).click();
+        addToBugBtn.click();
+    }
+
+    //The method click on 'VIEW/EDIT BAG' option
+    public void clickViewEditBag(){
+        viewEditBagBtn.click();
+        Utils.waiting();
     }
 
 /*

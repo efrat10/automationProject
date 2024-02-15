@@ -3,7 +3,7 @@ package pages;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import infra.Browser;
-import infra.ExtendReport;
+import infra.Reporter;
 import infra.UiElement;
 import org.openqa.selenium.By;
 import testCases.Constants;
@@ -36,7 +36,7 @@ public class HomePage {
 
     public HomePage() {
         //Receiving Singleton Test
-        test = ExtendReport.getInstance().getTest();
+        test = Reporter.getInstance().getTest();
 
     }
 

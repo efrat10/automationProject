@@ -33,7 +33,7 @@ public class UiElement {
         this.desc = desc;
         this.by = by;
         this.title = null;
-        test=ExtendReport.getInstance().getTest();
+        test= Reporter.getInstance().getTest();
 
     }
 
@@ -67,9 +67,7 @@ public class UiElement {
     //methods
 
     public void click() {
-        //reporter.hasScreenshot().message("Click on the element [" + this.desc + "]", by.toString());
-        //reporter.message("Click on the element [" + this.desc + "]", by.toString());
-        test.log(Status.INFO,"Click on the element [" + this.desc + "]  [" + by + "]");
+        test.log(Status.INFO,"Clicking on the element [" + this.desc + "] ");
         findElement();
         element.click();
         //Utils.sleepMS(500);

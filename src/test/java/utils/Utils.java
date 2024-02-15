@@ -6,7 +6,7 @@ import com.aventstack.extentreports.Status;
 import infra.Browser;
 //import infra.Reporter;
 import infra.ErrorsManage;
-import infra.ExtendReport;
+import infra.Reporter;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -25,7 +25,6 @@ public class Utils {
 
     //The method check if the webpage opened successfully
     public static void isOpenPage(String url) {
-        test= ExtendReport.getInstance().getTest();
 
         boolean pageOpened = false;
         try {
@@ -34,7 +33,7 @@ public class Utils {
 
         } catch (Exception e) {
             e.printStackTrace();
-            test.log(Status.FATAL, "next site was not found " + e.getMessage());
+            Reporter.fatalMessage("next site was not found " + e.getMessage());
             ErrorsManage.setNumError();
             pageOpened = false;
             addScreenshot();
@@ -48,7 +47,7 @@ public class Utils {
     //The method waiting 4000 millis
     public static void waiting()  {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(700);
         }catch (InterruptedException i){
             i.printStackTrace();
         }
@@ -58,7 +57,7 @@ public class Utils {
 
 
     public static void addScreenshot()  {
-        test=ExtendReport.getInstance().getTest();
+        test= Reporter.getInstance().getTest();
         try {
             String currentTime = String.valueOf(System.currentTimeMillis());
             test.pass("details", MediaEntityBuilder.createScreenCaptureFromPath(takeScreenShot(Constants.SCREEN_SHOT_PATH + currentTime)).build());

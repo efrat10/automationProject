@@ -4,17 +4,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import testCases.Constants;
 import utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
 
+    // Create EventFiringWebDriver variable In order to  use in a listener
     static EventFiringWebDriver eventDriver;
 
     public static EventFiringWebDriver getDriver() {
 
-        System.out.println();
         if (eventDriver == null) {
             // Create a new instance of ChromeOptions
             ChromeOptions options = new ChromeOptions();
@@ -41,8 +42,8 @@ public class Browser {
             eventDriver.register(listener);
 
             // Navigate to the desired website
-            eventDriver.get("https://www.next.co.il/en");
-            Utils.isOpenPage("https://www.next.co.il/en");
+            eventDriver.get(Constants.URL);
+            //Utils.isOpenPage(Constants.URL);
 
             Utils.waiting();
             Utils.waiting();

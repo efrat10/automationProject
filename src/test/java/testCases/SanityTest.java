@@ -1,21 +1,17 @@
 package testCases;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import infra.Browser;
 import infra.ErrorsManage;
-import infra.ExtendReport;
+import infra.Reporter;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.xml.sax.SAXException;
 import pages.*;
 import utils.Utils;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 
 
@@ -23,21 +19,14 @@ import java.io.IOException;
 //The class performs sanity tests for the 'next' site
 public class SanityTest {
 
-    //private static WebDriver driver;
-
     // create ExtentReports and attach reporter(s)
     private static ExtentReports extent;
-
-    // creates a toggle for the given test, adds all log events under it
-    private static ExtentTest test;
 
 
     @BeforeClass
     public static void beforeClass() {
 
-        extent = ExtendReport.getInstance().getExtent();
-        test = ExtendReport.getInstance().getTest();
-
+        extent = Reporter.getInstance().getExtent();
 
         /*boolean driverEstablish = false;
         try {
@@ -74,12 +63,11 @@ public class SanityTest {
     @Test
     public void test01_verifyLogin() throws InterruptedException, ParserConfigurationException, IOException, SAXException {
 
-        test.log(Status.INFO, "@Test - Sanity test for a page Verify Login starting");
+        //test.log(Status.INFO, "@Test - Sanity test for a page Verify Login starting");
+        Reporter.errorMessage("@Test - Sanity test for a page Verify Login starting");
 
         //creating object for sign in page
-        //SignIntoNextPage login = new SignIntoNextPage(driver);
         SignIntoNextPage login = new SignIntoNextPage();
-
         Utils.waiting();
 
         //click on login button
@@ -91,7 +79,7 @@ public class SanityTest {
         Utils.waiting();
 
         //Enter email && password
-        test.log(Status.INFO, "Enter email && password");
+        Reporter.infoMessage("Enter email && password");
         login.typeEmailId(Utils.getData("EMAIL"));
         login.typePassword(Utils.getData("PASSWORD"));
 
@@ -102,20 +90,17 @@ public class SanityTest {
 
         Browser.getDriver().navigate().back();
 
-
-
     }
 
     @Test
     //The test performs sanity test on the home page
     //The test checks the correctness of the links (one from each group), as well as the correctness of the language change
     public void test02_HomePage() {
-        test.log(Status.INFO, " @Test - Sanity test for home Page starting");
-        test.log(Status.INFO, "Checking links on the 'home page' and changing language");
+        Reporter.infoMessage(" @Test - Sanity test for home Page starting");
+        Reporter.infoMessage("Checking links on the 'home page' and changing language");
 
         //create object of HomePage
         HomePage homePage = new HomePage();
-
         Utils.waiting();
 
         //A call to the function to check the links
@@ -132,7 +117,8 @@ public class SanityTest {
 
     @Test
     public void test03_ProductBuyingProcess() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-       test.log(Status.INFO, " @Test - Sanity test for a Product Buying Process starting");
+
+        Reporter.infoMessage(" @Test - Sanity test for a Product Buying Process starting");
         //A call to the method that will perform sanity test on the Search page
         test_searchPage();
 
@@ -150,12 +136,12 @@ public class SanityTest {
     public void tearDown() throws Exception {
         if (ErrorsManage.getNumError() > 0) {
             System.out.println(ErrorsManage.getNumError() + " errors were found in this test");
-            test.log(Status.WARNING, ErrorsManage.getNumError() + " errors were found in this test");
+            Reporter.warningMessage(ErrorsManage.getNumError() + " errors were found in this test");
             ErrorsManage.resetErrors();
             Assert.fail();
         }
 
-        test.log(Status.INFO, " @Test -  ending");
+        Reporter.infoMessage(" @Test -  ending");
     }
 
     @AfterClass
@@ -164,44 +150,45 @@ public class SanityTest {
         // build and flush report
         extent.flush();
         Browser.getDriver().quit();
-        test.log(Status.INFO, "@After class  was performed ");
+        Reporter.infoMessage("@After class  was performed ");
+
     }
 
 
     //The test performs sanity test on the Search page
     public void test_searchPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test = ExtendReport.getInstance().getTest();
-        test.log(Status.INFO, "Search And Product Selection ");
+        Reporter.infoMessage("Search And Product Selection ");
 
         //creating object for search page
         SearchPage searchPage = new SearchPage();
 
         //Enter a product name for search
-        test.log(Status.INFO, "Enter a product name for search");
+        Reporter.infoMessage("Enter a product name for search");
         String dataToSearch = Utils.getData("ITEM_SEARCH");
         searchPage.SearchAndProductSelection(dataToSearch);
-        //isSucceededTransitionTo_New_Page("product", Constants.TITLE_PRODUCT_PAGE);
-
-        //test.log(Status.INFO, " Sanity test for a Search page ending");
 
     }
 
     //Method for test productPage
     public void test_productPage() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-        test.log(Status.INFO, "Choice of color and size in the selected product");
+        //test.log(Status.INFO, );
+        Reporter.infoMessage("Choice of color and size in the selected product");
         //creating object for product page
         ProductPage productPage = new ProductPage();
-        test.log(Status.INFO,"choice color");
+        //test.log(Status.INFO,);
+        Reporter.infoMessage("choice color");
         productPage.chooseColor();
         Utils.waiting();
+        Reporter.infoMessage("choice size");
         productPage.chooseSize();
 
         //click on add to bag button
-        test.log(Status.INFO, "click on add to bag button");
+        Reporter.infoMessage("Click 'Add To Bag' Button");
         productPage.clickAddToBagButton();
         Utils.waiting();
 
-
+        //click on view/edit option
+        //productPage.clickViewEditBag();
 
         //Choosing a specific size
        /* test.log(Status.INFO, "Choosing a specific size");
@@ -222,7 +209,7 @@ public class SanityTest {
     }
 
     //Method for test shoppingBag
-    public void test_shoppingBag() throws InterruptedException, IOException, ParserConfigurationException, SAXException {
+   /* public void test_shoppingBag() {
         //creating object for 'shopping bag' page
         ShoppingBag shoppingBag = new ShoppingBag();
 
@@ -279,7 +266,7 @@ public class SanityTest {
         test.log(Status.INFO, "@Test - Sanity test for a PaymentPage page  Ending");
 
     }
-
+*/
 
     /*//The method check if the webpage opened successfully
     public static void isOpenPage(String url) throws IOException {
@@ -317,10 +304,10 @@ public class SanityTest {
         boolean equalsTitles = actualTitle.equals(expectedTitle);
         if (equalsTitles) {
             System.out.println("The transition to the web " + nameNewPage + " page was done successfully");
-            test.log(Status.PASS, "The transition to the web " + nameNewPage + " page was done successfully ");
+            Reporter.passMessage("The transition to the web " + nameNewPage + " page was done successfully ");
         } else {
             System.out.println("The transition to the web " + nameNewPage + " page was fail");
-            test.log(Status.FAIL, "The transition to the web " + nameNewPage + " page was fail");
+            Reporter.errorMessage("The transition to the web " + nameNewPage + " page was fail");
             Utils.addScreenshot();
         }
 
@@ -360,7 +347,6 @@ public class SanityTest {
         return ImagesPath+".png";
     }
 */
-
 
 
 }
