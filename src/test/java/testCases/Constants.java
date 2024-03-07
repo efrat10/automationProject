@@ -3,6 +3,7 @@ package testCases;
 public class Constants {
 
     public final static String URL = "https://www.next.co.il/en";
+    public final static String URL_LOGIN = "https://account.next.co.il/en/Login";
     public final static String CONFIG_XML_FILE_PATH ="importData\\config.xml";
     public final static String REPORT_FILE_PATH = "reportFile\\extent.html";
     public final static String SCREEN_SHOT_PATH = "reportFile\\screenShot\\screenShot";

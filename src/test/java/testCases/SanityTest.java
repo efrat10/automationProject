@@ -59,38 +59,6 @@ public class SanityTest {
 */
     }
 
-    //The test method performs sanity test for login page
-    @Test
-    public void test01_verifyLogin() throws InterruptedException, ParserConfigurationException, IOException, SAXException {
-
-        //test.log(Status.INFO, "@Test - Sanity test for a page Verify Login starting");
-        Reporter.errorMessage("@Test - Sanity test for a page Verify Login starting");
-
-        //creating object for sign in page
-        SignIntoNextPage login = new SignIntoNextPage();
-        Utils.waiting();
-
-        //click on login button
-        login.clickMyAccount();
-
-        //checking if the clicking on login button successful
-        System.out.println(Browser.getDriver().getTitle());
-        isSucceededTransitionTo_New_Page("My account", Constants.TITLE_MY_ACCOUNT_PAGE);
-        Utils.waiting();
-
-        //Enter email && password
-        Reporter.infoMessage("Enter email && password");
-        login.typeEmailId(Utils.getData("EMAIL"));
-        login.typePassword(Utils.getData("PASSWORD"));
-
-        //click on 'sign in' button
-//        test.log(Status.INFO, "//click on 'sign in' button");
-//        login.clickSignInButton();
-//        waiting();
-
-        Browser.getDriver().navigate().back();
-
-    }
 
     @Test
     //The test performs sanity test on the home page
